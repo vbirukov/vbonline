@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="./js/parser.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/main_parser.css">
+  </head>
+  <body onload="putSelectors('controller', 0)">
+    <div id="selectors">
+        <!-- Поле для выбора модели контроллера -->
+        <select id="controller" onchange="putSelectors('ctl_unit', 1)">
+        <option value="empty">Выберите контроллер</option>
+        </select>
+        <!-- Поле для выбора модуля, внутри контроллера -->
+        <select id="ctl_unit" onchange="putSelectors('unit_register', 2)">
+
+          <option value="empty">выберите модуль</option>
+        </select>
+        <!-- Поле выбора регистра, внутри модуля -->
+        <select id="unit_register">
+          <option value="empty">выберите регистр</option>
+            <!-- <option value="ESDOTC">ESDOTC</option>
+             <option value="ESDCFG0">ESDCFG0</option>
+             <option value="ESDCFG1">ESDCFG1</option>
+             <option value="ESDCFG2">ESDCFG2</option>  -->
+        </select>
+      </div>
+    <hr>
+    <div id="input">
+      <!-- Поле для ввода значения прочитанного из регистра -->
+      <label for="reg_value">Значение</label>
+      <input id="reg_value"/>
+      <!-- Кнопуля для запуска декодирования значения -->
+      <button type="button" onclick="handler()">Декодировать</button>
+    </div>
+    <hr>
+    <!-- Место для вывода списка полей с их значениями, хранящимися в регистре -->
+    <div id="reg_fields"></div>
+  </body>
+</html>

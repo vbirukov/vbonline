@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+
+  <title>Parallax.js | Interactive Example</title>
+
+  <!-- Behavioral Meta Data -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <!--Import materialize.css-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+  <!-- Styles -->
+  <link rel="stylesheet" type="text/css" href="./assets/styles.css"/>
+  <!-- apply local stylesheet -->
+  <link rel="stylesheet" href="./css/test-master.css">
+
+</head>
+<body>
+
+  <div id="container" class="container parallax-container-fullscreen">
+    <img class="aspect" src="./img/prlx1.jpg">
+    <div id="scene" class="scene fill" data-pointer-events="true">
+      <div class="expand-width" data-depth="1.00"><img class='sun' src="./img/prlx2.png" alt=""></div>
+      <div class="expand-width" data-depth="0.80"></div>
+      <div class="expand-width" data-depth="0.60"><img class='cloud cloud2' src="./img/layer2.png" alt=""></div>
+      <div class="expand-width" data-depth="0.40"><img class='cloud cloud1' src="./img/cloud-1.png" alt=""></div>
+      <div class="expand-width" data-depth="0.20"><img src="./assets/img/vitaliy-main.png" class='avatar pulse' alt="Бирюков Виталий фото и ссылка на профиль ВК"></div>
+      <div class="expand-width" data-depth="0.00">
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./parallax.js"></script>
+  <script>
+
+  // Nothing new here...it's all in the CSS!
+  // And don't forget to activate the pointerEvents option
+  var scene = document.getElementById('scene');
+  var parallax = new Parallax(scene);
+
+  </script>
+
+</body>
+</html>

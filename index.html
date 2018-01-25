@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Бирюков Виталий - персональный сайт</title>
+
+
+
+    <!-- import normalize css -->
+    <link rel="stylesheet" href="./css/normalize.css">
+
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+    <!-- apply local stylesheet -->
+    <link rel="stylesheet" href="./css/master.css">
+
+    <!-- link to icon fonts -->
+    <script src="https://use.fontawesome.com/b7526c57a2.js"></script>
+    <link rel="stylesheet" <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Source+Sans+Pro" rel="stylesheet">
+
+    <!-- insert favicons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/fav/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/fav/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/fav/favicon-16x16.png">
+    <link rel="manifest" href="/fav/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/fav/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col s12 push-m6 m6">
+                    <a href="" class="avatar mx-auto"><img src="./img/vitaliy-main.png" alt="" class="avatar"></a>
+                </div>
+                <div class="col s12 pull-m6 m6">
+                    <h3 class=''>Бирюков Виталий</h3>
+                    <h4 class="socials-wrapper">
+                        <a href="" id='socials'></a>
+                        <a href="#"><i class="socials-wrapper_fa fa fa-facebook-square" aria-hidden="true"></i></a>
+                        <a href="https://vk.com/vbirukov"><i class="socials-wrapper_fa fa fa-vk" aria-hidden="true"></i></a>
+                        <a href="https://github.com/vbirukov"><i class="socials-wrapper_fa fa fa-github-square" aria-hidden="true"></i></a>
+                        <a href="https://ru.linkedin.com/in/vitaliy-birukov"><i class="socials-wrapper_fa fa fa-linkedin-square" aria-hidden="true"></i></a>
+                        <a href="mailto:vbirukov@gmail.com?Subject=Contact%20from%20a%20website" target="_top"><i class="socials-wrapper_fa fa fa-envelope" aria-hidden="true"></i></a>
+                        <a class='waves-effect waves-light btn blue lighten-1 modal-trigger' href="#modal1">Написать сообщение</a>
+                    </h4>
+                    <h4>
+                        <a class="waves-effect waves-light btn blue darken-2" onclick="$('#yoga').toggle(400)">yoga</a>
+                        <a class="waves-effect waves-light btn blue darken-1" onclick="$('#frontend').toggle(400)">front-end</a>
+                        <a class="waves-effect waves-light btn grey lighten-2 tooltipped" onclick="$('#copywriting').toggle(400)" data-position="bottom" data-delay="50" data-tooltip="coming soon">copywriting</a>
+                    </h4>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container" id='frontend'>
+            <div class="row">
+                <a class="toggle-up blue-grey-text text-darken-1" onclick="$('#frontend').toggle(400)">
+                    Toggle up | Свернуть
+                </a>
+                <section class='col s12 about'>
+                    <h5>Привет, меня зовут Виталий, front-end разработчик из Петербурга. Работаю на фрилансе 3 года.</h5>
+
+                    <h5><a href='https://hh.ru/resume/db025e41ff03aaa0470039ed1f637a7a626974' target="_blank">Резюме на hh.ru</a></h5>
+
+                    <h5 class='skills'> Skills: </h5>
+                    <a class='chip z-depth-2'>HTML5</a>
+                    <a class='chip z-depth-2'>CSS3</a>
+                    <a class='chip z-depth-2'>JavaScript</a>
+                    <a class='chip z-depth-2'>JQuery</a>
+                    <a class='chip z-depth-2'>Bootstrap</a>
+                    <a class='chip z-depth-2'>AJAX</a>
+                    <a class='chip z-depth-2'>Git</a>
+                    <a class='chip z-depth-2'>Gulp</a>
+                    <a class='chip z-depth-2'>SCRUM</a>
+                    <a class='chip z-depth-2'>Node.js</a>
+                    <a class='chip chip-inactive tooltipped z-depth-2' data-position="top" data-delay="50" data-tooltip="coming soon">React.js</a>
+                </section>
+            </div>
+            <div class="row">
+                <article class="col s12 m3 portfolio-item">
+                    <img src="./assets/img/portfolio/tsk38_1.png" alt="скриншот заглавной страницы">
+                    <a href="https://tsk38.ru" target="_blank">открыть в новом окне</a>
+                    <p>Сайт на 1С битрикс. Я делал верстку.</p>
+                </article>
+                <article class="col s12 m3 portfolio-item">
+                    <img src="./assets/img/portfolio/impressiveindia_1.png" alt="скриншот лэндинга">
+                    <a href="http://www.impressiveindia.ru" target="_blank">открыть в новом окне</a>
+                    <p>Лэндинг йога тура</p>
+                </article>
+                <article class="col s12 m3 portfolio-item">
+                    <img src="./img/portfolio/deepyoga.png" alt="скриншот лэндинга">
+                    <a href="http://www.deepyoga.ru" target="_blank">открыть в новом окне</a>
+                    <p>Лэндинг проета по доставке йоги на дом. Проект не запущен а сайт так и болтается в открытом простарнстве.</p>
+                </article>
+                <article class="col s12 m3 portfolio-item">
+                    <img src="./img/portfolio/cultofsun.png" alt="скриншот лэндинга">
+                    <a href="http://www.astrodestiny.ru" target="_blank">открыть в новом окне</a>
+                    <p>Лэндинг по йога-пректу "культ солнца".</p>
+                </article>
+            </div>
+            <div class="row">
+                <article class="col s12 m3 portfolio-item">
+                    <img src="./img/portfolio/astrodestiny.png" alt="скриншот лэндинга">
+                    <a href="http://www.astrodestiny.ru" target="_blank">открыть в новом окне</a>
+                    <p>Лэндинг по астрологии.</p>
+                </article>
+                <article class="col s12 m3 portfolio-item">
+                    <img src="./img/portfolio/parser_1.png" alt="скриншот парсера">
+                    <a href="/parser.html" target="_blank">открыть</a>
+                    <p>Парсер кодов ответов при настройке процессора i.MX53RM</p>
+                    <i>Дизайна тут нет: чистый ECMAScript и побитовые операции. Зато всем понятно что я умею в побитовые операции ))</i>
+                    <a href="https://github.com/vbirukov/macine-codes-parser">код на GitHub</a>
+                </article>
+                <div class="col s12 m3 portfolio-item">
+                    <p>Инструмент для работы с ВК </p>
+                    <img src="./img/portfolio/vkoutside.png" alt="скриншот парсера">
+                    <i>В процессе оказалось, что audio API прикрыт,
+            а возможность редактирования контента(в частности - удаление и загрузка фото)
+            ограничена для standalone приложений. 
+            Сейчас планирую перенести проект на Node.js и сделать инструмент для аналитики соцсетей.
+          </i>
+                    <br>
+                    <a href="http://www.vkoutside.ru" target="_blank">открыть</a>
+                    <br>
+                    <a href="https://github.com/vbirukov/macine-codes-parser">код на GitHub</a>
+                </div>
+            </div>
+            <div class="row hide">
+                <div class="col 12s 4m">
+                    <h5>Конечно же я очень люблю front-end</h5>
+                    <img src="./img/js.jpg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="container" id="yoga">
+            <div class="row">
+                <a class="toggle-up blue-grey-text text-darken-1" onclick="$('#yoga').toggle(400)">
+                      Toggle up | Свернуть
+                </a>
+                <div class="col s12">
+                    <h3>Инструктор йоги с 2009года.</h3>
+
+                    <h4><a href="https://www.artofliving.org/sri-sri-yoga" target="_blank">Шри Шри Йога</a></h4>
+
+                    <a class="waves-effect waves-light btn blue darken-2" onclick="$('#yoga-explained').toggle(400)">Подробнее о направлении</a>
+
+                    <div id='yoga-explained'>
+                        <hr>
+                        <h5>Шри Шри Йога представляет собой классическую йогу. Это достаточно большой комлпекс знаний и практик. На поверхности лежат асаны, пранаямы и медитация - то, что как правило, мы имеем ввиду, говоря "йога". В большинстве йога-классов
+                            занятия ограничиваются асанами. Мы же считаем, что это лишь самое начало.
+                        </h5>
+                        <h5>
+                            Асаны - это подготовка к настоящей практике. Они успокаивают поверхностнын волнения ума и укрепляют тело. После них следует приступать к пранаямам - дыхательным техникам. Они уже, в свою очередь погрузят вас в глубокое медитативное состояние. Медитация
+                            - цель йоги. Она позволяет избавляться от глубинных стрессов, фобий и напряжений. Медитация ведет к ментальному здоровью. Это как СПА для вашего мозга. После хорошей медитации вы ощутите прилив сил, хорошего настроения, энтузиазма
+                            и готовности к свершениям. Следуя правильным инструкциям вы легко получите опыт медитации уже на первом занятии.
+                        </h5>
+                        <hr>
+                    </div>
+
+                    <h5><a class="waves-effect waves-light btn orange darken-2" href='http:/культсолнца.рф' target="_blank">"Культ солнца"</a> - мой формат занятий</h5>
+
+                    <h5>
+                        Йога - моё всё. Она сделала меня тем, кем я хотел стать. Йога дала мне самый глубокий и самый интимный опыт в жизни - быть собой.
+                    </h5>
+                    <H5>
+                        В какой бы жизненной ситуации вы ни находились. Йога - самое лучшее, что вы моежте сделать для себя и своего окружения.
+                    </H5>
+                    <h5>Будь вы счастливы или несчастны, больны или здоровы, одиноки или в отношениях. Йога поможет вам укрепить ваши сильные стороны и преобразовать слабые. Йога поможет глубже погрузиться в приятные ощущения и легче пройти через неприятные.
+                        Йога помогает открывать и развивать таланты. Йога приносит вам целостность и тотальность бытия. Чем дальше вы идте тем глубже осознаете себя и свою жизнь.
+                    </h5>
+                    <h5>
+                        <a href='http://культсолнца.рф'>Приходите</a>, и я покажу вам это.
+                    </h5>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <textarea name="message" rows="20" cols="50" placeholder='ваше сообщение' required id='msgtxt'></textarea>
+
+                <input type="text" name="contacts" placeholder="ваш телефон, e-mail, или соцсеть" requred id='contact'>
+
+                <a class="waves-effect waves-light btn blue darken-1" id='send-btn'>отправить</a>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Закрыть</a>
+            </div>
+        </div>
+
+    </main>
+    <footer class='page-footer purple lighten-5'>
+        <div class='footer-copyright'>
+            <div class="container">
+                <div class="row">
+                    <div class="col s12">
+                        <h5>&#169 2018 <a href='#socials'>VB_online</a></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </footer>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script type="text/javascript" src='./js/test-app.js'></script>
+
+</body>
+
+</html>

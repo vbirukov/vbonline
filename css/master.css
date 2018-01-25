@@ -1,0 +1,155 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+    min-height: 90%;
+}
+
+.toggle-up {
+    cursor: pointer;
+    position: fixed;
+    top: 20rem;
+    left: calc(20vh*20%);
+}
+
+.container-cover {
+    width: 100%;
+    max-width: 100%;
+}
+
+.socials-wrapper_fa {
+    text-shadow: 1px 1px 3px gray;
+    transition: all 0.2s ease-in;
+}
+
+.socials-wrapper_fa:hover {
+    filter: brightness(110%);
+    text-shadow: 1px 1px 8px gray;
+}
+
+#frontend,
+#yoga,
+#yoga-explained {
+    display: none;
+}
+
+h1,
+h2 {
+    background-color: #ede7f6;
+    color: transparent;
+    text-shadow: 0px 2px 3px rgba(49, 27, 146, 0.5);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+}
+
+h3,
+h4 {
+    font-family: 'Roboto Slab', serif;
+}
+
+h1 {
+    font-size: 4em;
+}
+
+P {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.cover_main {
+    height: 100%;
+    /* background-image: url("../img/cover_main.jpeg"); */
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    justify-content: center;
+    border-top: 1px solid black;
+}
+
+.info {
+    height: 100%;
+    width: 100%;
+}
+
+
+/* .cover_main h1 {
+  font-size: 7em;
+} */
+
+.cover_main h1,
+.cover_main h2,
+.cover_main h3 {
+    color: white;
+    text-shadow: 3px 3px 5px #cc6600;
+}
+
+.cover_main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pt-3 {
+    padding-top: 3em;
+}
+
+.hidden {
+    display: none;
+}
+
+.inline {
+    display: inline;
+}
+
+.mr-1 {
+    margin-right: 1em;
+}
+
+.avatar {
+    margin-top: 1rem;
+}
+
+.container:first-child {
+    margin-top: 2rem;
+}
+
+.avatar img {
+    width: 175px;
+    height: 175px;
+    border-radius: 50%;
+    box-shadow: 2px 2px 15px 0px #d1c4e9;
+}
+
+.deep-orange {
+    color: #bf360c;
+}
+
+@media screen and (max-width: 500px) {
+    body {
+        font-size: 8px;
+        padding: 5px;
+    }
+    .cover_main h2 {
+        font-size: 4em;
+    }
+    .cover_main h3 {
+        font-size: 3.7em;
+    }
+}
+
+#map .modal-content {
+    height: 75vh;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.portfolio-item img {
+    width: 100%;
+}
