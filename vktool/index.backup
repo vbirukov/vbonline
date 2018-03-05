@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>VB's vk instrument</title>
+	<link rel="stylesheet" href="./css/main.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script src="https://use.fontawesome.com/b7526c57a2.js"></script>
+	<!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+</head>
+<body>
+	<div id="vk_api_transport"></div>
+	<script type="text/javascript">
+	  window.vkAsyncInit = function() {
+	    VK.init({
+	      apiId: 5892006
+	    });
+	  };
+
+	  setTimeout(function() {
+	    var el = document.createElement("script");
+	    el.type = "text/javascript";
+	    el.src = "https://vk.com/js/api/openapi.js?142";
+	    el.async = true;
+	    document.getElementById("vk_api_transport").appendChild(el);
+	  }, 0);
+	</script>
+
+		<div class="container section">
+				<div class="row">
+					<div class="col s12 text-center" id='buttonPanel'>
+						<div class="row">
+							<button type="button" id='loginBtn' class="mx-auto indigo lighten-5 btn-floating btn-large waves-effect waves-light pulse" data-command='login'><i class="fa fa-power-off red-text accent-4" aria-hidden="true"  data-command='login'></i></button>
+						</div>
+						<div class="row justify-center" id='mainButtons' style="display: none;">
+							<button type="button" id='getOwnGroups' class="btn waves-effect waves-light indigo" data-command='getAllGroups' data-apicommand='users.getSubscriptions' data-getter=true data-need='' extended='1' count='200' offset=''>Groups</button>
+							<button type="button" id='GetOwnAlbums' data-getter='true' data-apiCommand='photos.getAlbums' data-command='getAllAlbums' class="btn waves-effect waves-light indigo">Albums</button>
+							<button type="button" id='GetOwnFriends' data-getter='true' data-apiCommand='photos.getAlbums' data-command='getAllAlbums' class="btn waves-effect waves-light indigo">Friends</button>
+							<button type="button" id='GetOwnBookmarks' data-getter='true' data-apiCommand='photos.getAlbums' data-command='getAllAlbums' class="btn waves-effect waves-light indigo">Bookmarks</button>
+							<button type="button" id='GetOwnDocuments' data-getter='true' data-apiCommand='photos.getAlbums' data-command='getAllAlbums' class="btn waves-effect waves-light indigo">Documents</button>
+						</div>
+					</div>
+				</div>
+		</div>
+		<div class="divider"></div>
+		<div class="container section">
+				<div class="workspace row" id='workspace'>
+
+				</div>
+		</div>
+		<div class="divider"></div>
+		<div class="modal" id='photoFrame'>
+		    <div class="modal-content">
+		        <img src="" id='photoToShow' alt="">
+						<button class='modal-btn' id='modal-left' onclick="vkInterface.workspaceClick.listback()"></button>
+						<button class='modal-btn'  id='modal-right'  onclick="vkInterface.workspaceClick.listforward()"></button>
+		    </div>
+		</div>
+	<script
+		  src="https://code.jquery.com/jquery-3.2.1.min.js"
+		  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		  crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	<script src="./js/index.js"></script>
+</body>
+</html>

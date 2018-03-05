@@ -1,0 +1,172 @@
+@charset "UTF-8";
+/**
+ *
+ * @authors Your Name (you@example.org)
+ * @date    2017-03-19 17:48:08
+ * @version $Id$
+ */
+
+html {
+	color: #8A8A8A;
+	text-shadow: 1px 1px #9C9C9C;
+}
+
+.group-active {
+	border: 2px solid blue;
+	width: 25%;
+}
+
+#row--groups .col-4 img {
+	float: left;
+	margin-left: 15px;
+	margin-right: 5px;
+}
+
+.photoInfo {
+	position: relative;
+	margin-left: -50%;
+}
+
+#workspace .col-4 {
+	padding-top: 15px;
+	line-height: 1.2;
+	margin: 10px 0;
+}
+
+#workspace .col-4:hover {
+	background-color: #EAEAEA;
+	cursor: pointer;
+}
+
+
+#shift {
+	width: 150px;
+}
+
+/*#workspace .col-4 .badge {
+	position: absolute;
+	top: 25px;
+	right: 25px;
+}*/
+
+#row--albums .col-4 img, #row-photos .col-4 {
+	width: 100%;
+	object-fit: cover;
+	max-height: 230px;
+}
+
+.common-photo{
+	height: 20% !important;
+	min-width: 25%;
+	object-fit: cover;
+}
+
+.btn-delete-elem {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background-color: white;
+	width: 25px;
+	height: 25px;
+	margin-left: -40px;
+	margin-top: 5px;
+	z-index: 999;
+	border: none;
+	box-shadow: 1px 1px gray;
+	color: gray;
+}
+
+.avatar {
+	border-radius: 50%;
+	border: 5px solid #002266;
+	width: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: cover;
+	transition: all 0.7s ease-in;
+}
+
+.avatar:hover {
+	transform: perspective(500px) scale3d(0.7, 0.7, 2) translateZ(100px);
+}
+
+.albumTitle {
+	font-size: 1.2rem;
+}
+
+.mx-auto {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#loginBtn .on {
+	text-shadow: 0px 0px 2px #ff8a80;
+}
+
+#loginBtn .off {
+	text-shadow: 0px 0px 2px #b9f6ca;
+}
+
+#buttonPanel button{
+	font-weight: 600;
+	text-shadow: 0px 0px 1px #7986cb;
+}
+
+#buttonPanel button:focus, #buttonPanel button:focus {
+	color: #00e676;
+	text-shadow: 0px 0px 1px #b9f6ca;
+}
+
+#buttonPanel button:hover {
+	color: #69f0ae;
+	text-shadow: 0px 0px 1px #b9f6ca;
+}
+
+#buttonPanel .row:last-child button {
+	margin-right: 0.3rem;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.justify-between {
+	justify-content: space-between;
+}
+
+.modal {
+	max-height: 100% !important;
+	max-width: 70%;
+	width: auto !important;
+}
+
+.modal-btn, .modal-btn:focus {
+	position: absolute;
+	top: 0;
+	width: 50%;
+	height: 100% !important;
+	font-size: 70px;
+	color: rgba(255, 255, 255, 0);
+	background-color: rgba(166, 166, 166, 0);
+	transition: all 0.3s ease-in;
+	border: none;
+}
+
+.modal-btn:hover {
+	color: rgba(255, 255, 255, 0.5);
+	background-color: rgba(166, 166, 166, 0.3);
+}
+
+#modal-left {
+	left: 0;
+}
+
+#modal-right {
+	right: 0;
+}
+
+#photoToShow {
+	max-height: 90vh;
+	object-fit: contain;
+	height: 100%;
+}
