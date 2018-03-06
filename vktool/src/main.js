@@ -3,7 +3,9 @@ import App from './App.vue';
 
 
 
-app = new Vue({
+new Vue({
   el: '#app',
   render: h => h(App)
 })
+
+export const eventBus = new Vue();

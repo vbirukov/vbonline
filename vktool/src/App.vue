@@ -1,19 +1,13 @@
 <template>
   <div id="app">
     <h1>{{ msg }}</h1>
-    <h2>A place, where you can satisfy all your VK needs</h2>
+    <h2>You are: {{user.uid}}  <span v-if='user.loggedIn'>logged in</span> <span v-if='!user.loggedIn'>not logged in</span></h2>
     <login v-if='!user.loggedIn'></login>
     <!-- <button v-if='user.loggedIn' @click='parseLoginData'>Login here</button> -->
-    <user-info :user='user'></user-info>
+    <user-info :user='token'></user-info>
     <button @click="runRequest">Test request</button>
     <h1>{{response}}</h1>
-    <h3>List your:</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Groups</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Friends</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Docs</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Links</a></li>
-    </ul>
+    <main-menu :user='user'></main-menu>
     <h2>Ecosystem</h2>
     <ul>
       <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
@@ -27,19 +21,19 @@
 <script>
 import login from './login.vue';
 import userInfo from './user-info.vue';
-let callbackFunc = this.display;
+import MainMenu from './MainMenu.vue';
+
 export default {
   name: 'app',
   data () {
     return {
       msg: 'Welcome to essential VK Tool',
       token: 0,
-      // token: '14b47537638f8073888a0bb17e3b3246ec085b5254e4d3c8e8a765a4a736578fc89a2f63e5710394e8e7b',
       user: {
         loggedIn: false,
         uid: 0,
       },
-      response: 'text',
+      response: '',
     }
   },
   methods: {
@@ -76,6 +70,7 @@ export default {
   components: {
     'login': login,
     'user-info': userInfo,
+    'main-menu': MainMenu,
   },
   mounted: function() {
     console.log('login mounted');

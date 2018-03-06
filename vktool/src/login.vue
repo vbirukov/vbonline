@@ -7,12 +7,15 @@
 </template>
 
 <script>
+import { eventBus } from './main.js';
+
 export default {
   methods: {
     login()  { 
       VK.Auth.login(function(response) {
         if (response.session) {
-          console.log('Пользователь успешно авторизовался');
+          console.log('Пользователь успешно авторизовался' + JSON.stringify(response));
+          eventBus.$emit('userLoggedIn', response.session.user);
           if (response.settings) {
             console.log('Выбранные настройки доступа пользователя, если они были запрошены');
           }
