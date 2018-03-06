@@ -22,6 +22,7 @@
 import login from './login.vue';
 import userInfo from './user-info.vue';
 import MainMenu from './MainMenu.vue';
+import {eventBus} from './main.js'
 
 export default {
   name: 'app',
@@ -83,7 +84,12 @@ export default {
     } else {
       console.log('login false');
     }
-  }
+  },
+  created() {
+        eventBus.$on('userLoggedIn', (userData) => {
+        this.user.name = userData.first_name + ' ' + userData.last_name;
+      });
+    }
 }
 </script>
 
