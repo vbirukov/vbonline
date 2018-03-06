@@ -1,13 +1,27 @@
 <template>
   <div>
     <h3>First you need to</h3>
-    <a href="https://oauth.vk.com/authorize?client_id=5892006&display=page&redirect_uri=vbonline.ru/vktool/index.html&scope=1518755&response_type=token&v=5.52">Login with VK</a>
+    <!-- 1518755 -->
+    <button @click='login'>login</button>
   </div>
 </template>
 
 <script>
 export default {
-
+  methods: {
+    login()  { 
+      VK.Auth.login(function(response) {
+        if (response.session) {
+          console.log('Пользователь успешно авторизовался');
+          if (response.settings) {
+            console.log('Выбранные настройки доступа пользователя, если они были запрошены');
+          }
+        } else {
+          console.log('Пользователь нажал кнопку Отмена в окне авторизации');
+        }
+      });
+    }
+  }
 }
 </script>
 

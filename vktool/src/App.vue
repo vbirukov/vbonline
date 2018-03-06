@@ -5,7 +5,7 @@
     <login v-if='!user.loggedIn'></login>
     <!-- <button v-if='user.loggedIn' @click='parseLoginData'>Login here</button> -->
     <user-info :user='user'></user-info>
-    <button @click='runRequest'>Run request</button>
+    <button @click="runRequest">Test request</button>
     <h1>{{response}}</h1>
     <h3>List your:</h3>
     <ul>
@@ -27,7 +27,7 @@
 <script>
 import login from './login.vue';
 import userInfo from './user-info.vue';
-
+let callbackFunc = this.display;
 export default {
   name: 'app',
   data () {
@@ -62,28 +62,16 @@ export default {
       console.log('user id: ' + this.user.uid);
     },
     display(response) {
-      console.log('displayong response');
+      console.log('displaying response');
       this.response = response;
     },
     runRequest() {
-      // var xhttp = new XMLHttpRequest();
-      // xhttp.withCredentials = true;
-      // console.log('xhttp.withcredentials: ' + xhttp.withCredentials);
-      // xhttp.onreadystatechange = function() {
-      //   if (this.readyState == 4 && this.status == 200) {
-      //   console.log(this.responseText);
-      //  }
-      // };
-
-      // xhttp.open("GET", "https://api.vk.com/method/users.get?user_ids=799258&access_token=14b47537638f8073888a0bb17e3b3246ec085b5254e4d3c8e8a765a4a736578fc89a2f63e5710394e8e7b&v=5.73", true);
-      // xhttp.setRequestHeader('Access-Control-Allow-Origin', '*');  
-      // // xhttp.setRequestHeader('Access-Control-Allow-Credentials','true');
-      // xhttp.send();  
-      console.log(_vue_);
-      var elem = document.createElement("script");
-      elem.src = 'https://api.vk.com/method/users.get?user_ids=799258&access_token=14b47537638f8073888a0bb17e3b3246ec085b5254e4d3c8e8a765a4a736578fc89a2f63e5710394e8e7b&v=5.73&callback=' + this.display;
-      document.head.appendChild(elem);
-    }   
+      VK.Api.call('users.get', {user_ids: 6492, v:"5.73"}, function(r) {
+        if(r.response) {
+          alert('Привет, ' + r.response[0].first_name);
+        }
+      });
+    },
   },
   components: {
     'login': login,
@@ -97,7 +85,6 @@ export default {
       this.parseLoginData();
       console.log('logged in');
       console.log('looking for user avatar & name');
-      this.runRequest();
     } else {
       console.log('login false');
     }
