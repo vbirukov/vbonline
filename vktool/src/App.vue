@@ -1,12 +1,9 @@
 <template>
   <div id="app">
-    <h1>{{ msg }}</h1>
-    <h2>You are: {{user.uid}}  <span v-if='user.loggedIn'>logged in</span> <span v-if='!user.loggedIn'>not logged in</span></h2>
+    <h1 v-if="!user.loggedIn">{{ msg }}</h1>
     <login v-if='!user.loggedIn'></login>
     <!-- <button v-if='user.loggedIn' @click='parseLoginData'>Login here</button> -->
-    <user-info :user='token'></user-info>
-    <button @click="runRequest">Test request</button>
-    <h1>{{response}}</h1>
+    <user-info :user='user'></user-info>
     <main-menu :user='user'></main-menu>
     <h2>Ecosystem</h2>
     <ul>
@@ -33,39 +30,35 @@ export default {
       user: {
         loggedIn: false,
         uid: 0,
+        avatarSrc: '',
       },
       response: '',
     }
   },
   methods: {
-    findParameterBetween(begin, end, url) {
-      console.log('DBG. runnin findParameters. Begin:' + begin + " end: " + end);
-      console.log('url: ' + url);
-      begin = url.search(begin) + 6;
-      console.log('begin found at: ' + begin);
-      end = url.search(end) - 1;
-      console.log('end found at: ' + end);
-      return url.slice(begin, end);
-    },
-    parseLoginData() {
-      let url = window.location.toString();
-      console.log('reading url: ' + url);
-      this.token = this.findParameterBetween('token', 'expires', url);
-      console.log('login data read, token #is: ' + this.token);
-      let begin = url.search('id=') + 3;
-      this.user.uid = url.slice(begin);
-      console.log('user id: ' + this.user.uid);
-    },
     display(response) {
       console.log('displaying response');
       this.response = response;
     },
-    runRequest() {
-      VK.Api.call('users.get', {user_ids: 6492, v:"5.73"}, function(r) {
-        if(r.response) {
-          alert('Привет, ' + r.response[0].first_name);
+    resetAvatar(response) {
+      VK.Api.call('photos.getById', {owner_id: this.user.uid, photos: response[0].photo_id, v:'5.73'}, function(r){
+        if(r.response[0]['photo_807']) {
+          this.user.avatarSrc = r['response'][0]['photo_807'];
+          console.log('reseting avatar with pic src: ' + r['response'][0]['photo_807']);
+          console.log('new avatar is set: ' + this.user.avatarSrc);
+        } 
+        console.log('photo src, should be somewhere here: ' + JSON.stringify(r));
+      }.bind(this));
+    },
+    retrieveAvatar () {
+      VK.Api.call('users.get', {user_ids: this.user.uid, fields: 'photo_id', v:'5.73'}, function(r, e) {
+        if(r) {
+          console.log('avatar id received, requesting src of file');
+          this.resetAvatar(r.response);
+        } else if(e) {
+          console.log('error while running api request: ' + e);
         }
-      });
+      }.bind(this));
     },
   },
   components: {
@@ -74,22 +67,15 @@ export default {
     'main-menu': MainMenu,
   },
   mounted: function() {
-    console.log('login mounted');
-    if( window.location.toString().indexOf('token') !== -1) {
-      console.log('login link detected');
-      this.user.loggedIn = true;
-      this.parseLoginData();
-      console.log('logged in');
-      console.log('looking for user avatar & name');
-    } else {
-      console.log('login false');
-    }
   },
-  created() {
-        eventBus.$on('userLoggedIn', (userData) => {
-        this.user.name = userData.first_name + ' ' + userData.last_name;
-      });
-    }
+  created: function() {
+    eventBus.$on('userLoggedIn', (userData) => {
+      this.user.name = userData.first_name + ' ' + userData.last_name;
+      this.user.uid = userData.id;
+      this.user.loggedIn = true;
+      this.retrieveAvatar();
+    });
+  }
 }
 </script>
 
