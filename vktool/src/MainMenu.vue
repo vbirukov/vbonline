@@ -1,4 +1,5 @@
 <template>
+
     <div>
       <h3>List your:</h3>
         <ul>
@@ -8,6 +9,8 @@
 </template>
 
 <script>
+import { eventBus } from './main';
+
 export default {
     props: ['user'],
     data() {
@@ -16,18 +19,19 @@ export default {
                 [
                     {
                         name: 'Albums',
-                        command: 'photos.GetAlbum',
+                        command: 'photos.getAlbums',
                         id: 'getAlbumsBtn',
                         options: {
-                                
-                            }
+                            user_id: this.user.uid,
+                            count: 1000,   
+                        }
                     },
                     {
                         name: 'Friends',
                         command: 'friends.get',
                         id: 'getFriendsBtn',
                         options: {
-                            user_id: 123,
+                            user_id: this.user.uid,
                             count: 5000,
                             
                         }
@@ -36,11 +40,9 @@ export default {
                         name: 'Docs',
                         command: 'docs.get',
                         id: 'getDocsBtn',
-                        options: function() {
-                            return {
-                                owner_id: user.uid,
-                                count: 2000,
-                            }
+                        options: {
+                            owner_id: this.user.uid,
+                            count: 2000,
                         }
                     },   
                 
@@ -48,12 +50,10 @@ export default {
                         name: 'Groups',
                         command: 'groups.get',
                         id: 'getGroupsBtn',
-                        options: function() {
-                            return {
-                                user_id: user.uid,
-                                extended: 1,
-                                count: 1000,
-                            }
+                        options: {
+                            user_id: this.user.uid,
+                            extended: 1,
+                            count: 1000,
                         }
                     },                                            
                 ]
@@ -61,14 +61,16 @@ export default {
     },
     methods: {
         runRequest(apiMethod) {
-            console.log('Beep... runnning av api call');
-            apiMethod.options.user_id = this.user.uid;
+            console.log('Beep... runnning an api call');
+            console.log('user_id is: ' + this.user.uid)
+            // apiMethod.options.user_id = this.user.uid;
             apiMethod.options.v = '5.73';
             console.log('call options listing: ' + JSON.stringify(apiMethod.options) );
             VK.Api.call(apiMethod.command, apiMethod.options, function(r, err) {
                 if(r.response) {
                     console.log('respose received: ' + JSON.stringify(r.response));
-                } else {
+                    eventBus.$emit('dataReceived', r.response);
+                } else if(err) {
                     console.log(err);
                 }
             });

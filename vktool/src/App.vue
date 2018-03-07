@@ -3,15 +3,9 @@
     <h1 v-if="!user.loggedIn">{{ msg }}</h1>
     <login v-if='!user.loggedIn'></login>
     <!-- <button v-if='user.loggedIn' @click='parseLoginData'>Login here</button> -->
-    <user-info :user='user'></user-info>
-    <main-menu :user='user'></main-menu>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <user-info v-if='user.loggedIn' :user='user'></user-info>
+    <main-menu v-if='user.loggedIn' :user='user'></main-menu>
+    <display-space v-if='response' :data='response'></display-space>
   </div>
 </template>
 
@@ -19,7 +13,9 @@
 import login from './login.vue';
 import userInfo from './user-info.vue';
 import MainMenu from './MainMenu.vue';
-import {eventBus} from './main.js'
+import {eventBus} from './main.js';
+import DisplaySpace from './DisplaySpace.vue';
+
 
 export default {
   name: 'app',
@@ -32,7 +28,7 @@ export default {
         uid: 0,
         avatarSrc: '',
       },
-      response: '',
+      response: false,
     }
   },
   methods: {
@@ -65,6 +61,7 @@ export default {
     'login': login,
     'user-info': userInfo,
     'main-menu': MainMenu,
+    'display-space': DisplaySpace,
   },
   mounted: function() {
   },
@@ -74,6 +71,16 @@ export default {
       this.user.uid = userData.id;
       this.user.loggedIn = true;
       this.retrieveAvatar();
+    });
+    eventBus.$on('dataReceived', (responseData) => {
+      this.response = responseData;
+    });
+    eventBus.$on('loadGroup', (id) => {
+      VK.Api.call('wall.get', {owner_id: -id, count: 100, v: '5.73'}, (r) => {
+        console.log('group get response: ' + JSON.stringify(r.response));
+        r.response.type = 'group';
+        this.response = r.response;
+      });
     });
   }
 }
