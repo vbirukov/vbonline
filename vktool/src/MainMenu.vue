@@ -69,6 +69,7 @@ export default {
             VK.Api.call(apiMethod.command, apiMethod.options, function(r, err) {
                 if(r.response) {
                     console.log('respose received: ' + JSON.stringify(r.response));
+                    r.response.type = apiMethod.name;
                     eventBus.$emit('dataReceived', r.response);
                 } else if(err) {
                     console.log(err);

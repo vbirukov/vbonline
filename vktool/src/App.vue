@@ -39,7 +39,7 @@ export default {
     resetAvatar(response) {
       VK.Api.call('photos.getById', {owner_id: this.user.uid, photos: response[0].photo_id, v:'5.73'}, function(r){
         if(r.response[0]['photo_807']) {
-          this.user.avatarSrc = r['response'][0]['photo_807'];
+          this.user.avatarSrc = r.response[0]['photo_807'];
           console.log('reseting avatar with pic src: ' + r['response'][0]['photo_807']);
           console.log('new avatar is set: ' + this.user.avatarSrc);
         } 
@@ -50,7 +50,7 @@ export default {
       VK.Api.call('users.get', {user_ids: this.user.uid, fields: 'photo_id', v:'5.73'}, function(r, e) {
         if(r) {
           console.log('avatar id received, requesting src of file');
-          this.resetAvatar(r.response);
+          setTimeout(this.resetAvatar(r.response), 1000);
         } else if(e) {
           console.log('error while running api request: ' + e);
         }
@@ -79,6 +79,8 @@ export default {
       VK.Api.call('wall.get', {owner_id: -id, count: 100, v: '5.73'}, (r) => {
         console.log('group get response: ' + JSON.stringify(r.response));
         r.response.type = 'group';
+        r.response.offset = 100;
+        r.response.groupId = id;
         this.response = r.response;
       });
     });
