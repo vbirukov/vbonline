@@ -1,16 +1,36 @@
 <template>
     <div class='container'>
-      <div class="frame docs" v-for="item in data.items" :key='item.id'>
-          {{item.title}}
-      </div>
+        <button @click='setViewAll'>View all docs</button> <button @click='setViewGif'>View gifs only</button>
+        <div v-if='viewOptions.all' class="frame docs" v-for="item in data.items" :key='item.id'>
+            <p>{{item.title}}</p>
+            <a :href='item.url' target="blank">Open</a>
+        </div>
+        <div v-if='viewOptions.gif' class='frame' :key='item.id' v-for="item in data.items">
+            <img v-if='item.ext == "gif"' :src="item.url" alt="">
+        </div>
     </div>
 </template>
 
 <script>
 export default {
     props: ['data'],
-    mounted: function() {
-        console.log('docs view mounted ' + data);
+    data() {
+        return {
+            viewOptions: {
+                all: true,
+                gif: false,
+            }
+        }
+    },
+    methods: {
+        setViewAll() {
+            this.viewOptions.all = true;
+            this.viewOptions.gif = false;
+        },
+        setViewGif() {
+            this.viewOptions.all = false;
+            this.viewOptions.gif = true;
+        }
     }
 }
 </script>
@@ -19,7 +39,7 @@ export default {
     .container {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: space-between;
         width: 100%;
         max-width: 1150px;
         flex-wrap: wrap;
@@ -33,5 +53,10 @@ export default {
     img {
         width: 100%;
         object-fit: cover;
+    }
+
+    p {
+        word-wrap: break-word;
+        max-width: 100%;
     }
 </style>
