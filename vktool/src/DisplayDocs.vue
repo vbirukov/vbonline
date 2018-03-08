@@ -1,14 +1,23 @@
 <template>
+<div>
+    <button @click='setView("all")'>View all items</button> <button @click="setView('doc')">View docs only</button> <button @click='setView("gif")'>View gifs only</button>
     <div class='container'>
-        <button @click='setViewAll'>View all docs</button> <button @click='setViewGif'>View gifs only</button>
+        
         <div v-if='viewOptions.all' class="frame docs" v-for="item in data.items" :key='item.id'>
             <p>{{item.title}}</p>
-            <a :href='item.url' target="blank">Open</a>
+            <img v-if='item.preview' :src="getBiggestPreview(item)" alt="">
+            <p><a :href='item.url' target="blank">Open</a></p>
         </div>
         <div v-if='viewOptions.gif' class='frame' :key='item.id' v-for="item in data.items">
             <img v-if='item.ext == "gif"' :src="item.url" alt="">
         </div>
+        <div v-if='filterView(item)' class='frame' :key='item.id' v-for="item in data.items">
+            <p>{{item.title}}</p>
+            <p><a :href='item.url' target="blank">Open</a></p>
+        </div>
+        
     </div>
+</div>    
 </template>
 
 <script>
@@ -19,17 +28,29 @@ export default {
             viewOptions: {
                 all: true,
                 gif: false,
+                doc: false,
             }
         }
     },
     methods: {
-        setViewAll() {
-            this.viewOptions.all = true;
-            this.viewOptions.gif = false;
+        setView(type) {
+            console.log('setting ' + type + ' type view');
+            for (let item in this.viewOptions) {
+                this.viewOptions[item] = false;
+            }
+            this.viewOptions[type] = true;
+            console.log('viewOptions: ' + JSON.stringify(this.viewOptions));
         },
-        setViewGif() {
-            this.viewOptions.all = false;
-            this.viewOptions.gif = true;
+        filterView(item) {
+            console.log('filtering...');
+            if ( this.viewOptions.doc && ( item.ext=="doc" || item.ext=="djvu" || item.ext=="pdf" || item.ext=="fb2" || item.ext=="txt" || item.ext=="epub" || item.ext=="rtf" || item.ext=="rar"|| item.ext=="zip" || item.ext=="mobi") ) {
+                return true
+            } else {
+                return false
+            }
+        },
+        getBiggestPreview(item) {
+           return item.preview.photo.sizes[item.preview.photo.sizes.length-1].src
         }
     }
 }
@@ -47,7 +68,6 @@ export default {
 
     .frame {
         max-width: 25%;
-        display: flex;
     }
 
     img {
@@ -58,5 +78,6 @@ export default {
     p {
         word-wrap: break-word;
         max-width: 100%;
+        font-size: 1rem;
     }
 </style>
