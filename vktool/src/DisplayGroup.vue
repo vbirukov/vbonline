@@ -1,6 +1,7 @@
 <template>
   <div class='container'>
       <div class="frame" v-for="item in data.items" :key='item.id'>
+        <i @click='deleteItem(item)'>X</i>
         <img :key='attachment.id' v-for='attachment in item.attachments' :src='extractSrc(attachment)' alt="">   
       </div>
       <button @click='loadMore()'>Load More</button>
@@ -38,6 +39,9 @@ export default {
             }
           }
       },
+      deleteItem(item) {
+          this.data.items.splice(item, 1);
+      },
       loadMore() {
         // eventBus.$emit('loadMoreGroupPosts', 'hello');
         VK.Api.call('wall.get', {owner_id: -this.data.groupId, count: 100, v: '5.73', offset: this.data.offset}, (r) => 
@@ -68,5 +72,15 @@ export default {
     img {
         width: 100%;
         object-fit: cover;
+    }
+
+    i {
+        position: absolute;
+        margin-left: 18%;
+        margin-top: 4px;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 5px;
+        background-color: rgba(155, 155, 155, 0.5);
     }
 </style>
