@@ -27,6 +27,7 @@ export default {
         loggedIn: false,
         uid: 0,
         avatarSrc: '',
+        friends: 0,
       },
       response: false,
     }
@@ -56,6 +57,22 @@ export default {
         }
       }.bind(this));
     },
+    retrieveFriends() {
+      VK.Api.call('friends.get', {user_id: this.user.uid, v: '5.73'}, function(r, e) {
+        this.user.friends = r.response.count;
+
+      }.bind(this));
+    },
+    retrieveGroups() {
+      VK.Api.call('groups.get', {user_id: this.user.uid, v: '5.73'}, function(r, e) {
+        this.user.groups = r.response.count;
+       }.bind(this));
+    },
+    initiateUserInfo() {
+      this.retrieveAvatar();
+      this.retrieveFriends();
+      this.retrieveGroups();
+    },
   },
   components: {
     'login': login,
@@ -70,7 +87,7 @@ export default {
       this.user.name = userData.first_name + ' ' + userData.last_name;
       this.user.uid = userData.id;
       this.user.loggedIn = true;
-      this.retrieveAvatar();
+      this.initiateUserInfo();
     });
     eventBus.$on('dataReceived', (responseData) => {
       this.response = responseData;

@@ -1,8 +1,19 @@
 <template>
 
-    <div>
-        <img :src='user.avatarSrc' alt="">
-        <h2>{{user.name}}</h2>
+    <div class='main-container'>
+        <div class='avatar-container'>
+            <img :src='user.avatarSrc' alt="">
+        </div>
+        <div class="info-container">
+            <h2>{{user.name}}</h2>
+            <div>
+                <p>You have {{user.friends}} friends</p>
+                <p>You are subscribed to {{user.groups}} groups</p>
+                <div>
+                    <button @click='friendGroups()'>most popular groups among your friends</button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -13,14 +24,23 @@ export default {
   props: ['user'],
   created() {
 
+  },
+  methods: {
+      friendGroups() {
+        VK.Api.call('friends.get', {user_id: this.user.uid, v: '5.73'}, function(r, e) {
+        this.user.friendList = r.response.items;
+        }.bind(this));
+        for (friend in this.user.friendList) {
+            VK.Api.call('groups.get', {user_id: friend, v: '5.73'}, function(r) {});
+        }
+      },
   }
 }
 </script>
 
 <style scoped>
-    div {
+    .main-container {
         max-width: 1150px;
-        width: 100%;
         margin-left: auto;
         margin-right: auto;
         display: flex;
@@ -38,4 +58,19 @@ export default {
         height: 80px;
         object-fit: cover;
     }
+
+    .info-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .info-container div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    p {
+        margin-top: 0;
+    }
+
 </style>

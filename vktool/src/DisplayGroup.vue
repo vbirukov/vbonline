@@ -1,7 +1,7 @@
 <template>
   <div class='container'>
-      <div class="frame" v-for="item in data.items" :key='item.id'>
-        <i @click='deleteItem(item)'>X</i>
+      <div class="frame" v-for="(item, index) in data.items" :key='item.id'>
+        <i @click='deleteItem(index)'>X</i>
         <img :key='attachment.id' v-for='attachment in item.attachments' :src='extractSrc(attachment)' alt="">   
       </div>
       <button @click='loadMore()'>Load More</button>
@@ -71,7 +71,8 @@ export default {
 
     img {
         width: 100%;
-        object-fit: cover;
+        height: 100%;
+        object-fit: contain;
     }
 
     i {
