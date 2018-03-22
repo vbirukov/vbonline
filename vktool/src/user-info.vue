@@ -34,18 +34,20 @@ export default {
         console.log('frinedsLIst: ' + typeof this.user.friendList);
         console.log('frinedsLIst: ' + this.user.friendList);
         for (let friend in this.user.friendList) {
-            VK.Api.call('groups.get', {user_id: friend, v: '5.73'}, function(r) {
-                for (let item in r.response) {
-                    setTimeout(() => {
-                        if (this.user.friendsGroups.item) {
-                            this.user.friendsGroups.item += 1;
-                        }   else {
-                            this.user.friendsGroups.item = 1;
-                        }
-                        
-                    }, 500); 
-                }
-            }.bind(this));
+            console.log('frien iteration: ' + friend);            
+                let friendsGroupsBuffer = [];
+            setTimeout(() => {  
+                console.log('timeout function'); 
+                VK.Api.call('groups.get', {user_id: friend, v: '5.73'}, function(r) {
+                    console.log('calling API');
+                    friendsGroupsBuffer = r.response.items;
+                    for (let group in friendsGroupsBuffer) {
+                        this.user.friendsGroups.group +=  1;
+                        console.log("user.friendsGroups: " + JSON.stringify(friendsGroupsBuffer) + ' ' + group);
+                }    
+                }.bind(this));
+            }, 1000);             
+
         }
         console.log('friends groups: ' + JSON.stringify(this.user.friendsGroups));
       },
