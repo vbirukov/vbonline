@@ -11,6 +11,8 @@
                 <p>You are subscribed to {{user.groups}} groups</p>
                 <div>
                     <button @click='friendGroups()'>most popular groups among your friends</button>
+                    <div class="completed"> completed {{Math.floor(completedWidth)}}%</div>
+                    <div>{{analyzed}}</div>
                 </div>
             </div>
         </div>
@@ -22,34 +24,54 @@ import { eventBus } from './main.js';
 
 export default {
   props: ['user'],
+  data() {
+      return {
+          completedWidth: 0,
+          analyzed: 'test',
+      }
+  },
   created() {
 
   },
   methods: {
       friendGroups() {
-        VK.Api.call('friends.get', {user_id: this.user.uid, v: '5.73'}, function(r, e) {
-        this.user.friendList = r.response.items;
-        }.bind(this));
+        this.user.friendList = [];
         this.user.friendsGroups = {};
-        console.log('frinedsLIst: ' + typeof this.user.friendList);
-        console.log('frinedsLIst: ' + this.user.friendList);
-        for (let friend in this.user.friendList) {
-            console.log('frien iteration: ' + friend);            
-                let friendsGroupsBuffer = [];
-            setTimeout(() => {  
-                console.log('timeout function'); 
-                VK.Api.call('groups.get', {user_id: friend, v: '5.73'}, function(r) {
-                    console.log('calling API');
-                    friendsGroupsBuffer = r.response.items;
-                    for (let group in friendsGroupsBuffer) {
-                        this.user.friendsGroups.group +=  1;
-                        console.log("user.friendsGroups: " + JSON.stringify(friendsGroupsBuffer) + ' ' + group);
-                }    
-                }.bind(this));
-            }, 1000);             
+        VK.Api.call('friends.get', {user_id: this.user.uid, v: '5.73'}, function(r, e) {
+            console.log('vk response: ' + JSON.stringify(r.response.items));
+            this.user.friendList = r.response.items;
+            console.log('this.user... ' + JSON.stringify(this.user.friendList));
+            this.user.friendList.reduce(function(previousValue, currentValue, index, array){
 
-        }
-        console.log('friends groups: ' + JSON.stringify(this.user.friendsGroups));
+                let delay = index;
+                setTimeout(() => {
+                    this.completedWidth = index / ( array.length / 100 );  
+                    if (index == arra.length) {
+                        this.completedWidth = 100;
+                        console.log('index: ' + index);
+                        console.log('array.length: ' + array.length);
+                    }             
+                    VK.Api.call('groups.get', {user_id: currentValue, v: '5.73'}, function(r) 
+                    {
+                        if (r.response) {
+                            r.response.items.forEach(function(item) {
+                                this.user.friendsGroups[item] ? this.user.friendsGroups[item] += 1 : this.user.friendsGroups[item] = 1;    
+                            }.bind(this));
+                        }
+                    }.bind(this))
+                }, delay * 600);                      
+            }.bind(this));
+        }.bind(this));
+        this.filterFriendsGroups();
+      },
+      filterFriendsGroups() {
+          let max = 1;
+          for (let group in this.user.friendsGroups) {
+              max > group ? max = 1 : max = group;
+          }
+          for (let group in this.user.friendsGroups) {
+              max == group ? this.analyzed[group] = group : false;
+          }
       },
   }
 }
