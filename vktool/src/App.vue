@@ -15,6 +15,7 @@ import userInfo from './user-info.vue';
 import MainMenu from './MainMenu.vue';
 import {eventBus} from './main.js';
 import DisplaySpace from './DisplaySpace.vue';
+import VkCaller from './VkCaller.vue';
 
 
 export default {
@@ -79,6 +80,7 @@ export default {
     'user-info': userInfo,
     'main-menu': MainMenu,
     'display-space': DisplaySpace,
+    'VkCaller': VkCaller,
   },
   mounted: function() {
   },
@@ -101,6 +103,10 @@ export default {
         this.response = r.response;
       });
     });
+    eventBus.$on('callVk', (props) => {
+        console.log('got event, calling Vk');
+        MainMenu.methods.runRequest(props);
+    });    
   }
 }
 </script>
