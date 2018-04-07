@@ -8,23 +8,6 @@
             <h2>{{user.name}}</h2>
             <div class='flex-col'>
                 <div class='flex-col'>
-                    <button @click='friendGroups()'>most popular groups among your friends</button>
-                    <div class="completed"> completed {{Math.floor(completedWidth)}}%</div>
-                    <div class='flex-row'>
-                        <button @click='filterFriendsGroups()'>
-                            Manual start filtration & view results
-                        </button> 
-                        <input type='text' v-model='max'> <p>minimum # of friends in group</p>
-                    </div>
-                    <button @click='viewErrorFriends()'> View errored friends</button>
-                    <button @click='logFriendsGroups()'> Put friends groups to log</button>
-                    <div v-if='viewErrored'>
-                        <ul>
-                            <li v-bind:key='friend' v-for='friend in viewErrorFriends'>
-                                <a href="#" target="blank">{{friend}}</a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>

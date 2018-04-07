@@ -138,4 +138,16 @@ li {
 a {
   color: #42b983;
 }
+
+button {
+  padding: 0.5rem 0.75rem;
+  background-color: azure;
+  border: 1px solid aqua;
+  box-shadow: 1px 1px 1px 1px gray;
+}
+
+button:active {
+  transform: translate(1, 1);
+  box-shadow: none;
+}
 </style>
