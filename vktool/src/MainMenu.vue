@@ -1,7 +1,7 @@
 <template>
 
 <div class='flex-row flex-start'>
-    <div>
+    <div class='section'>
       <h3>
           Analytics
       </h3>  
@@ -13,7 +13,7 @@
         </div>            
         <div class="completed"> completed {{Math.floor(sensors.completion)}}%</div>
     </div>
-    <div>
+    <div class='section'>
       <h3>List your:</h3>
         <ul>
             <li :key='item.id' v-for='item in menu.main'><button @click='runRequest(item)'>{{item.name}}</button></li>
@@ -277,6 +277,7 @@ export default {
         flex-direction: row;
         align-items: center;    
         justify-content: center;
+        flex: 1;
     }
 
     .flex-start {
@@ -285,5 +286,15 @@ export default {
 
     .narrow {
         max-width: 20px;
+    }
+
+    .section {
+        border-radius: 5%;
+        box-shadow: 1px 1px 2px 2px gainsboro;
+        align-self: stretch;
+    }
+
+    .section:last-child {
+        margin-left: 1rem;
     }
 </style>

@@ -1,8 +1,7 @@
 <template>
 
 
-  <div class="container">
-      <h3>data type {{data.type}}</h3>
+  <div class="container"> 
       <display-group v-if='data.type == "group"' :data='data'></display-group>
       <display-docs class='display-docs' v-if='data.type == "Docs"' :data='data'></display-docs>
       <display-groups-list v-if='data.type == "Groups"' :data='data'></display-groups-list>

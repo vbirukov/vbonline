@@ -1,11 +1,14 @@
 <template>
-  <div class='container'>
-      <div class="frame" v-for="(item, index) in data.items" :key='item.id'>
-        <i @click='deleteItem(index)'>X</i>
-        <img :key='attachment.id' v-for='attachment in item.attachments' :src='extractSrc(attachment)' alt="">   
-      </div>
-      <button @click='loadMore()'>Load More</button>
-  </div>
+    <div>
+        <h3>{{data.title}}</h3>
+        <div class='container'>
+            <div class="frame" v-for="(item, index) in data.items" :key='item.id'>
+                <i @click='deleteItem(index)'>X</i>
+                <img :key='attachment.id' v-for='attachment in item.attachments' :src='extractSrc(attachment)' alt="">   
+            </div>
+            <button @click='loadMore()'>Load More</button>
+        </div>
+    </div>
 </template>
 
 <script>

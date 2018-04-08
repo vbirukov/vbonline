@@ -94,12 +94,14 @@ export default {
     eventBus.$on('dataReceived', (responseData) => {
       this.response = responseData;
     });
-    eventBus.$on('loadGroup', (id) => {
-      VK.Api.call('wall.get', {owner_id: -id, count: 100, v: '5.73'}, (r) => {
+    eventBus.$on('loadGroup', (groupInfo) => {
+      console.log('id: ' + groupInfo);
+      VK.Api.call('wall.get', {owner_id: (-groupInfo.id), count: 100, v: '5.73'}, (r) => {
         console.log('group get response: ' + JSON.stringify(r.response));
         r.response.type = 'group';
+        r.response.title = groupInfo.name;  
         r.response.offset = 100;
-        r.response.groupId = id;
+        r.response.groupId = groupInfo.id;
         this.response = r.response;
       });
     });
