@@ -6,16 +6,21 @@
     <user-info v-if='user.loggedIn' :user='user'></user-info>
     <main-menu v-if='user.loggedIn' :user='user'></main-menu>
     <display-space v-if='response' :data='response'></display-space>
+
+    <postprocess :data='response'></postprocess>
   </div>
+
+
 </template>
 
 <script>
-import login from './login.vue';
-import userInfo from './user-info.vue';
-import MainMenu from './MainMenu.vue';
+import login from './modules/utilities/login.vue';
+import userInfo from './modules/panels/user-info.vue';
+import MainMenu from './modules/panels/MainMenu.vue';
 import {eventBus} from './main.js';
-import DisplaySpace from './DisplaySpace.vue';
-import VkCaller from './VkCaller.vue';
+import DisplaySpace from './modules/display/DisplaySpace.vue';
+import VkCaller from './modules/utilities/VkCaller.vue';
+import PostProcess from './modules/utilities/PostProcess.vue';
 
 
 export default {
@@ -81,6 +86,7 @@ export default {
     'main-menu': MainMenu,
     'display-space': DisplaySpace,
     'VkCaller': VkCaller,
+    'postprocess': PostProcess,
   },
   mounted: function() {
   },
@@ -108,7 +114,8 @@ export default {
     eventBus.$on('callVk', (props) => {
         console.log('got event, calling Vk');
         MainMenu.methods.runRequest(props);
-    });    
+    });
+
   }
 }
 </script>
@@ -151,5 +158,32 @@ button {
 button:active {
   transform: translate(1, 1);
   box-shadow: none;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1050px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.frame {
+    padding: 5px;
+}
+
+.narrow {
+  width: 15px;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+p {
+    word-wrap: break-word;
 }
 </style>

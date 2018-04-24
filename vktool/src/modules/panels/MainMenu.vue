@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { eventBus } from './main';
+import { eventBus } from '../../main';
 
 export default {
     props: ['user'],
@@ -295,6 +295,6 @@ export default {
     }
 
     .section:last-child {
-        margin-left: 1rem;
+        margin-left: 1rem; 
     }
 </style>

@@ -1,6 +1,7 @@
 <template>
     <div>
         <h3>{{data.title}}</h3>
+
         <div class='container'>
             <div class="frame" v-for="(item, index) in data.items" :key='item.id'>
                 <i @click='deleteItem(index)'>X</i>
@@ -12,10 +13,11 @@
 </template>
 
 <script>
-import {eventBus} from './main.js'
+import {eventBus} from '../../main.js'
 
 export default {
   props: ['data'],
+
   methods: {
       extractSrc(item) {
           if (item.photo) {

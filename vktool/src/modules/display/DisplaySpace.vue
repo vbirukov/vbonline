@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { eventBus } from './main';
+import { eventBus } from '../../main.js';
 import DisplayGroup from './DisplayGroup.vue';
 import DisplayDocs from './DisplayDocs.vue';
 import DisplayGroupsList from './DisplayGroupsLIst.vue';
@@ -37,22 +37,6 @@ export default {
 }
 </script>
 
-<style scoped>
-    .container {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        width: 100%;
-        max-width: 1050px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+<style>
 
-    .frame {
-        padding: 5px;
-    }
-
-    p {
-        word-wrap: break-word;
-    }
 </style>
