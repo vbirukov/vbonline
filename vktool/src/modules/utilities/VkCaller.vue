@@ -1,12 +1,12 @@
 <template>
-  
+
 </template>
 
 <script>
 export default {
     props: ['properties'],
     methods: {
-                call(callProps) {
+        call: function(callProps) {
             return new Promise((resolve, reject) => {
                 callProps.options.v = '5.73';
                 console.log('Beep... runnning an api call with following props: ' + JSON.stringify(callProps));
@@ -15,7 +15,7 @@ export default {
                     if(r['error']) {
                         console.log('errior while running request');
                         console.log(r.error);
-                        resject('error' + r.error); 
+                        reject('error' + r.error); 
                     }                
                     if (callProps.raw) {
                         if(r.response) {
@@ -37,16 +37,9 @@ export default {
                     }
                 });                
             });
-            
         }
     },
-    // created: function() {
-    //     console.log('VkCaller created');
-    //     eventBus.$on('callVk', (props) => {
-    //         console.log('got event, calling Vk');
-    //         this.call(props);
-    //     });
-    // }
+
 }
 </script>
 

@@ -1,7 +1,8 @@
 <template>
     <div>
-        <button @click="filterGroupsList()" >filter by members count</button><input type='text' class='narrow' v-model='filterMax'><i>Maximum group members</i>                    
-        <input type='text' class='narrow' v-model='filterMin'><i>Minimum group members</i>   
+        <button @click="filterGroupsList()" >filter by members count</button>
+        <input type='text' class='textbox_normal' v-model='filterMax'><i>Maximum group members</i>                    
+        <input type='text' class='textbox_normal' v-model='filterMin'><i>Minimum group members</i> 
         <div class="container group-list flex-row">        
             <div v-if='data.items' class='frame' :key="item.id" v-for='item in data.items' @click='loadGroup(item   )'>
                 <h5 v-if="item.name">{{item.name}}</h5>
@@ -28,11 +29,8 @@ export default {
         },
         filterGroupsList() {
             let params = {};
-            if (this.filterMax > 0) {
-                params.max = this.filterMax;
-            } else if (this.filterMin > 0) {
-                params.min = this.filterMin;
-            }
+            params.max = this.filterMax;
+            params.min = this.filterMin;
             params.data = this.data;
             params.filter = 'membersAmount';
             eventBus.$emit('filterGroupList', params);

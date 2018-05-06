@@ -9,7 +9,7 @@
             <li :key='item.id' v-for='item in menu.analytics'><button @click='item.todo()'>{{item.name}}</button></li>
         </ul>
         <div class='flex-row'>
-            <input type="text" v-model='max' class='narrow'><p>minimum number of matches</p>
+            <input type="text" v-model='max' class='narrow'><p>min. number of matches</p>
         </div>            
         <div class="completed"> completed {{Math.floor(sensors.completion)}}%</div>
     </div>
@@ -69,6 +69,7 @@ export default {
                             user_id: this.user.uid,
                             extended: 1,
                             count: 1000,
+                            fields: 'members_count',
                         }
                     },                                            
                 ],

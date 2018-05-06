@@ -178,6 +178,10 @@ button:active {
   width: 15px;
 }
 
+.textbox_normal {
+  width: 50px;
+}
+
 .flex-row {
     display: flex;
     flex-direction: row;

@@ -1,5 +1,5 @@
 <template>
-  
+    <vkcaller></vkcaller>
 </template>
 
 <script>
@@ -9,18 +9,23 @@ export default {
     props: ['data'],
     methods: {
         filterGroupsList(params) {
+            console.log('got Filter event, starting');
+            console.log('params are: ' + JSON.stringify(params));
+            console.log('max is: ' + params.max + ' min is: ' + params.min)
             let array = params.data.items;
             console.log('array: ' + JSON.stringify(array));
             array.forEach(function(element, index, array) {
-                //get group memebers amount
-                VK.Api.call('groups.getById', {group_id: element.id, fields: 'members_count', v: '5.73'}, function(r)
-                {
-                    if(r.responce[0].members_count > params.max && r.responce[0].members_count < params.min) {
-                        array.splice(index, 1);
-                    } 
-                })
+                // console.log('item: ' + JSON.stringify(element));
+                // console.log("element['members_count'] " + element['members_count']);
+                if((element['members_count'] > params.max) || (element['members_count'] < params.min)) {
+                    console.log('splicing');
+                    array.splice(index, 1);
+                }                
             });
         },
+    },
+    components: {
+        vkcaller: 'VkCaller',
     },
     created() {
         eventBus.$on('filterGroupList', (params) => {
