@@ -102,13 +102,15 @@ export default {
     });
     eventBus.$on('loadGroup', (groupInfo) => {
       console.log('id: ' + groupInfo);
-      VK.Api.call('wall.get', {owner_id: (-groupInfo.id), count: 100, v: '5.73'}, (r) => {
+      VK.Api.call('wall.get', {owner_id: (-groupInfo.id), count: 100, offset: groupInfo.initialOffset, v: '5.73'}, (r) => {
         console.log('group get response: ' + JSON.stringify(r.response));
         r.response.type = 'group';
         r.response.title = groupInfo.name;  
-        r.response.offset = 100;
+        r.response.offset = groupInfo.initialOffset + 100;
+        
         r.response.groupId = groupInfo.id;
         this.response = r.response;
+        console.log('offset will be set for: ' + this.response.offset);
       });
     });
     eventBus.$on('callVk', (props) => {

@@ -1,16 +1,20 @@
 <template>
 
 <div class='flex-row flex-start'>
-    <div class='section'>
-      <h3>
+    <div class='section analytics'>
+        <h3>
           Analytics
-      </h3>  
-        <ul>
-            <li :key='item.id' v-for='item in menu.analytics'><button @click='item.todo()'>{{item.name}}</button></li>
-        </ul>
-        <div class='flex-row'>
-            <input type="text" v-model='max' class='narrow'><p>min. number of matches</p>
-        </div>            
+        </h3>
+        <div class='flex-row'> 
+            <div> 
+            <ul>
+                <li :key='item.id' v-for='item in menu.analytics'><button @click='item.todo()'>{{item.name}}</button></li>
+            </ul>
+            </div>
+            <div class='flex-row'>
+                <input type="text" v-model='max' class='narrow'><p>min. number of matches</p>
+            </div>            
+        </div>
         <div class="completed"> completed {{Math.floor(sensors.completion)}}%</div>
     </div>
     <div class='section'>
@@ -297,5 +301,9 @@ export default {
 
     .section:last-child {
         margin-left: 1rem; 
+    }
+
+    .analytics ul {
+        margin-top: 0px;
     }
 </style>

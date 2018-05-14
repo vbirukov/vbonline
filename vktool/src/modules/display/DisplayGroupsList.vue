@@ -1,8 +1,15 @@
 <template>
     <div>
-        <button @click="filterGroupsList()" >filter by members count</button>
-        <input type='text' class='textbox_normal' v-model='filterMax'><i>Maximum group members</i>                    
-        <input type='text' class='textbox_normal' v-model='filterMin'><i>Minimum group members</i> 
+        <div class='group-view_menu'>
+            <div>
+                <button @click="filterGroupsList()" >filter by members count</button>
+                <input type='text' class='textbox_normal' v-model='filterMax'><i>Maximum group members</i>                    
+                <input type='text' class='textbox_normal' v-model='filterMin'><i>Minimum group members</i> 
+            </div>
+            <div>
+                <i>Display starting from post #</i><input type="number" class='textbox_normal' v-model='initialOffset'>
+            </div>
+        </div>
         <div class="container group-list flex-row">        
             <div v-if='data.items' class='frame' :key="item.id" v-for='item in data.items' @click='loadGroup(item   )'>
                 <h5 v-if="item.name">{{item.name}}</h5>
@@ -24,7 +31,9 @@ export default {
     props: ['data'],
     methods: {
         loadGroup(groupInfo) {
-            console.log('group info: ' + groupInfo);
+            groupInfo.initialOffset = +this.initialOffset;
+            console.log('group info: ' + JSON.stringify(groupInfo));
+            console.log('initial offset passed as parameter: ' + groupInfo.initialOffset);
             eventBus.$emit('loadGroup', groupInfo);
         },
         filterGroupsList() {
@@ -40,13 +49,13 @@ export default {
       return {
           filterMax: 0,
           filterMin: 0,
-    }
-  },
+          initialOffset: 0,
+      }
+    },
 }
 </script>
 
 <style scoped>
-
 
     .group-list .frame{
         width: 15%;

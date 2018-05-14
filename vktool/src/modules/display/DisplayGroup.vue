@@ -3,7 +3,16 @@
         <h3>{{data.title}}</h3>
 
         <div class='container'>
-            <div class="frame" v-for="(item, index) in data.items" :key='item.id'>
+            <div class='options-menu'>
+                <p>View:  
+                    <input type="checkbox" id='viewPhotos' checked> <label for="viewPhotos">Photos</label>
+                    <input type="checkbox" id='viewGifs'> <label for="viewGifs">Gifs</label>
+                    <input type="checkbox" id='viewDocs'> <label for="viewDocs">Docs</label>
+                    <span>   |  </span>
+                    <label for="likesFilter"> Minimum of likes: </label><input type="number" id='likesFilter' v-model="likesFilter">
+                    </p>
+            </div>
+            <div class="frame" v-if='filterpass(item)' v-for="(item, index) in data.items" :key='item.id'>
                 <i @click='deleteItem(index)'>X</i>
                 <img :key='attachment.id' v-for='attachment in item.attachments' :src='extractSrc(attachment)' alt="">   
             </div>
@@ -17,7 +26,11 @@ import {eventBus} from '../../main.js'
 
 export default {
   props: ['data'],
-
+  data() {
+    return {
+        likesFilter: 0,
+    }
+  },
   methods: {
       extractSrc(item) {
           if (item.photo) {
@@ -44,11 +57,19 @@ export default {
             }
           }
       },
+      filterpass(item) {
+          if (item.likes.count < this.likesFilter) {
+              return false
+              console.log('filter cut');
+          }
+          return true
+      },
       deleteItem(item) {
           this.data.items.splice(item, 1);
       },
       loadMore() {
         // eventBus.$emit('loadMoreGroupPosts', 'hello');
+        console.log('offset: ' + this.data.offset);
         VK.Api.call('wall.get', {owner_id: -this.data.groupId, count: 100, v: '5.73', offset: this.data.offset}, (r) => 
         {
             this.data.offset += 100;
@@ -88,5 +109,9 @@ export default {
         border-radius: 50%;
         padding: 2px 5px;
         background-color: rgba(155, 155, 155, 0.5);
+    }
+
+    .options-menu {
+        width: 100%;
     }
 </style>

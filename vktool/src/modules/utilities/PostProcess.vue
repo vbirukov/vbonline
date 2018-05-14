@@ -4,6 +4,7 @@
 
 <script>
 import {eventBus} from '../../main.js';
+import VkCaller from './VkCaller.vue';
 
 export default {
     props: ['data'],
