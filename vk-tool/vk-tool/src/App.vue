@@ -97,6 +97,14 @@ export default {
   mounted: function() {
   },
   created: function() {
+    VK.Auth.getLoginStatus((data) => {
+      console.log('beep')
+      console.log(data);
+      if (data.status == 'connected') 
+      {
+        eventBus.$emit('userLoggedIn', data.session.user);        
+      }
+    });
     eventBus.$on('userLoggedIn', (userData) => {
       this.user.name = userData.first_name + ' ' + userData.last_name;
       this.user.uid = userData.id;
