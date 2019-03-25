@@ -35,7 +35,7 @@ export default {
                         options: {
                             user_id: this.user.uid,
                             count: 5000,
-                            
+                            fields: 'photo_100, online, contacts, has_mobile, nickname, domain'
                         }
                     },
                     {
@@ -57,6 +57,8 @@ export default {
                             user_id: this.user.uid,
                             extended: 1,
                             count: 1000,
+                            // fields: 'age_limits, activity, members_count, place, trending, description, is_hidden_from_feed'
+                            fields: 'members_count'
                         }
                     },                                            
                 ],
@@ -93,16 +95,18 @@ export default {
                 }                
                 if (callProps.raw) {
                     if(r.response) {
-                        console.log('respose received: ' + JSON.stringify(r.response));
                         r.response.type = callProps.name;
                         eventBus.$emit('dataReceived', r.response);
+                        console.log('respose received: ' + JSON.stringify(r.response));                        
                     } else {
                         console.log('unhandled responce: ' + r);
                     }
                 } else if (!callProps.raw) {
                     if(r.response) {
-                        console.log('this should  run corret ' + r);
+                        console.log('this should  run corret ' + JSON.stringify(r));
                         temp = r.response;
+                        r.response.type = callProps.name;
+                        eventBus.$emit('dataReceived', r.response);
                         console.log(temp);
                     } else {
                         console.log('unhandled responce: ' + r);
@@ -119,7 +123,7 @@ export default {
                     if(r['error']) {
                         console.log('errior while running request');
                         console.log(r.error);
-                        resject('error' + r.error); 
+                        reject('error' + r.error); 
                     }                
                     if (callProps.raw) {
                         if(r.response) {
@@ -132,7 +136,7 @@ export default {
                         }
                     } else if (!callProps.raw) {
                         if(r.response) {
-                            console.log('this should  run corret ' + r);
+                            console.log('this should  run corret ' + JSON.stringify(r));
                             resolve(r.response);
                         } else {
                             console.log('unhandled responce: ' + r);
@@ -223,33 +227,33 @@ export default {
                 console.log('indexControl: ' + indexControl);
             })                  
         },
-      filterFriendsGroups() {
-        console.log('getting ready to parse these records: ' + JSON.stringify(this.user.friendsGroups));
-        this.analyzed = [];
-        this.analyzed.idList = [];
-        for (let group in this.user.friendsGroups) {
-            console.log('group: ' + this.user.friendsGroups[group]);
-            console.log('max: ' + this.max);
-            if (this.user.friendsGroups[group] > this.max) {
-                let newRecord = {
-                    id: group,
-                    match: this.user.friendsGroups[group],
-                }
-                this.analyzed.idList.push(group);
-                this.analyzed.push(newRecord);
-            }   
-        }
+        filterFriendsGroups() {
+            console.log('getting ready to parse these records: ' + JSON.stringify(this.user.friendsGroups));
+            this.analyzed = [];
+            this.analyzed.idList = [];
+            for (let group in this.user.friendsGroups) {
+                console.log('group: ' + this.user.friendsGroups[group]);
+                console.log('max: ' + this.max);
+                if (this.user.friendsGroups[group] > this.max) {
+                    let newRecord = {
+                        id: group,
+                        match: this.user.friendsGroups[group],
+                    }
+                    this.analyzed.idList.push(group);
+                    this.analyzed.push(newRecord);
+                }   
+            }
 
-        console.log('analyzed: ' + JSON.stringify(this.analyzed));
-        let callProps = {};
-        callProps.method = 'groups.getById';
-        callProps.options = {
-            group_ids: this.analyzed.idList,
-        };
-        callProps.name = 'Groups';
-        callProps.raw = true;
-        this.runRequest(callProps);
-      },
+            console.log('analyzed: ' + JSON.stringify(this.analyzed));
+            let callProps = {};
+            callProps.method = 'groups.getById';
+            callProps.options = {
+                group_ids: this.analyzed.idList,
+            };
+            callProps.name = 'Groups';
+            callProps.raw = true;
+            this.runRequest(callProps);
+        },
     },
     components: {
         userInfo,

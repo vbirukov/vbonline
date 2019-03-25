@@ -9,10 +9,10 @@
       <h1 v-if="!user.loggedIn" class='text-xs-center mb-5'>{{ msg }}</h1>
       <login v-if='!user.loggedIn'></login>
       <!-- <button v-if='user.loggedIn' @click='parseLoginData'>Login here</button> -->
-      <div v-if='user.loggedIn'>
+      <v-flex v-if='user.loggedIn'>
         <main-menu v-if='menu == "main"' :user='user'></main-menu>
         <analyticsMenu v-if='menu == "analytics"' :user='user'></analyticsMenu>      
-      </div>
+      </v-flex>
       <display-space v-if='response' :data='response'></display-space>
       <postprocess :data='response'></postprocess>
     </v-content>
@@ -28,7 +28,7 @@ import VkCaller from './modules/utilities/VkCaller.vue';
 import PostProcess from './modules/utilities/PostProcess.vue';
 import analyticsMenu from './modules/panels/analyticsMenu'
 
-export default {
+export default { 
   name: 'app',
   data () {
     return {
@@ -39,6 +39,7 @@ export default {
         uid: 0,
         avatarSrc: '',
         friends: 0,
+        sid: 0,
       },
       response: false,
       menu: "main",
@@ -50,11 +51,9 @@ export default {
       this.response = response;
     },
     resetAvatar(response) {
-      VK.Api.call('photos.getById', {owner_id: this.user.uid, photos: response[0].photo_id, v:'5.73'}, function(r){
+      VK.Api.call('photos.getById', {owner_id: this.user.uid, photos: response[0].photo_id, v:'5.73'}, function(r){    
         if(r.response[0]['photo_807']) {
           this.user.avatarSrc = r.response[0]['photo_807'];
-          console.log('reseting avatar with pic src: ' + r['response'][0]['photo_807']);
-          console.log('new avatar is set: ' + this.user.avatarSrc);
         } 
         console.log('photo src, should be somewhere here: ' + JSON.stringify(r));
       }.bind(this));
@@ -63,10 +62,12 @@ export default {
       VK.Api.call('users.get', {user_ids: this.user.uid, fields: 'photo_id', v:'5.73'}, function(r, e) {
         if(r) {
           console.log('avatar id received, requesting src of file');
+          console.log(r);
           setTimeout(this.resetAvatar(r.response), 1000);
+          this.user.name = r.response[0].first_name + ' ' + r.response[0].last_name;
         } else if(e) {
           console.log('error while running api request: ' + e);
-        }
+        }  
       }.bind(this));
     },
     retrieveFriends() {
@@ -78,7 +79,7 @@ export default {
     retrieveGroups() {
       VK.Api.call('groups.get', {user_id: this.user.uid, v: '5.73'}, function(r, e) {
         this.user.groups = r.response.count;
-       }.bind(this));
+      }.bind(this));
     },
     initiateUserInfo() {
       this.retrieveAvatar();
@@ -98,20 +99,23 @@ export default {
   },
   created: function() {
     VK.Auth.getLoginStatus((data) => {
-      console.log('beep')
-      console.log(data);
       if (data.status == 'connected') 
       {
-        eventBus.$emit('userLoggedIn', data.session.user);        
+        this.user.uid = data.session.mid;
+        this.user.sid = data.session.sid; 
+        this.user.loggedIn = true;        
+        this.retrieveAvatar();     
+        console.log('dada session debug: ' + JSON.stringify(data));     
       }
     });
     eventBus.$on('userLoggedIn', (userData) => {
       this.user.name = userData.first_name + ' ' + userData.last_name;
       this.user.uid = userData.id;
       this.user.loggedIn = true;
-      this.initiateUserInfo();
+      this.retrieveAvatar();
     });
     eventBus.$on('dataReceived', (responseData) => {
+      console.log('copying data');
       this.response = responseData;
     });
     eventBus.$on('loadGroup', (groupInfo) => {

@@ -1,17 +1,20 @@
 <template>
     <v-layout>
-        <v-avatar
-          :tile='true'
-          :size='150'
-          color="grey lighten-4"
-        >
-          <img :src='user.avatarSrc' alt="avatar">
-        </v-avatar>        
-        <v-flex class='avatar-container'>
-            <img :src='user.avatarSrc' alt="">
+        <v-flex xs3>
+            <v-avatar
+            :tile='true'
+            :size='100'
+            color="grey lighten-4"
+            >
+            <img :src='user.avatarSrc' alt="avatar">
+            </v-avatar>        
         </v-flex>
-        <v-flex class="info-container">
-            <h2>{{user.name}}</h2>
+        
+        <!-- <v-flex class='avatar-container'>
+            <img :src='user.avatarSrc' alt="">
+        </v-flex> -->
+        <v-flex xs8 class="info-container">
+            <h2 class='mt-2'>{{user.name}}</h2>
             <div class='flex-col'>
                 <div class='flex-col'>
                 </div>

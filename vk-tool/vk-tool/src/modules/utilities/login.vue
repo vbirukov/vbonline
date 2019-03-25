@@ -4,7 +4,6 @@
       <p class='text-xs-center headline'>First you need to</p>
       <!-- 1518755 -->
       <p class='text-xs-center'><v-btn info @click='login' class="text-xs-center info">login</v-btn></p>
-      <p class='text-xs-center body-2'>to Vk.com don't worry we don't keep any of your data</p> 
     </v-flex>
   </v-layout>
 </template>
